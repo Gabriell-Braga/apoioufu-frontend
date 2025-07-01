@@ -1,26 +1,42 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Cores da paleta fornecida */
+  --palette-1: #59bad8; /* Azul/Ciano claro */
+  --palette-2: #125063; /* Azul-esverdeado escuro */
+  --palette-3: #072128; /* Azul-esverdeado muito escuro (quase preto) */
+  --palette-4: #6bc8e3; /* Azul/Ciano mais claro */
+  --palette-5: #ffffff; /* Branco puro */
+
+  /* Definição de background e foreground para o tema claro */
+  --background: var(--palette-5); /* Branco como background padrão */
+  --foreground: var(--palette-3); /* Azul-esverdeado muito escuro como foreground padrão */
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Definição de cores da paleta */
+  --color-palette-1: var(--palette-1);
+  --color-palette-2: var(--palette-2);
+  --color-palette-3: var(--palette-3);
+  --color-palette-4: var(--palette-4);
+  --color-palette-5: var(--palette-5);
+
+  /* Definição de fontes */
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-serif: Georgia, Times, serif;
+  --font-mono: 'Courier New', Courier, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Definição de background e foreground para o tema escuro */
+    --background: var(--color-palette-3); /* Azul-esverdeado muito escuro como background no modo escuro */
+    --foreground: var(--color-palette-5); /* Branco como foreground no modo escuro */
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans, Arial, Helvetica, sans-serif);
 }
