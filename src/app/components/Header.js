@@ -57,9 +57,9 @@ const Header = () => {
   return (
     <header
       // Classes Tailwind para transição fluida, posição fixa e sombra
-      className={`fixed top-0 left-0 w-full z-50 p-4 transition-all duration-300 ease-in-out shadow-md ${headerBg}`}
+      className={`fixed top-0 left-0 w-full z-50 p-4 transition-all duration-300 ease-in-out shadow-md flex justify-center items-center ${headerBg}`}
     >
-      <div className="container mx-auto flex items-center justify-between">
+      <div className="container w-[1200px] flex items-center justify-between">
         {/* Logo */}
         <div className="flex-shrink-0">
           <img

@@ -21,10 +21,7 @@
   --color-palette-4: var(--palette-4);
   --color-palette-5: var(--palette-5);
 
-  /* Definição de fontes */
-  --font-sans: Arial, Helvetica, sans-serif;
-  --font-serif: Georgia, Times, serif;
-  --font-mono: 'Courier New', Courier, monospace;
+  --font-sans: var(--font-montserrat);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,5 +35,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans, Arial, Helvetica, sans-serif);
+  font-family: var(--font-sans);
 }
