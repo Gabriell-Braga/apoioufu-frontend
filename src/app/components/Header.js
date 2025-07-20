@@ -74,24 +74,10 @@ const Header = () => {
           <ul className="flex space-x-6">
             <li>
               <a
-                href="#"
+                href="/denunciar"
                 className={`relative group ${textColor} hover:text-opacity-80 transition-colors duration-300 pb-1`} // Adicionado pb-1 para espaço da linha
               >
-                Link 1
-                <span
-                  // A cor da barra ajusta com a cor do texto para contraste
-                  // Se o texto for branco (cabeçalho escuro), a barra é palette-4 (azul/ciano mais claro)
-                  // Caso contrário (cabeçalho claro), a barra é palette-2 (azul-esverdeado escuro)
-                  className={`absolute bottom-0 left-0 w-0 h-0.5 ${textColor === 'text-palette-5' ? 'bg-palette-5' : 'bg-palette-3'} group-hover:w-full transition-all duration-300 ease-in-out`}
-                ></span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className={`relative group ${textColor} hover:text-opacity-80 transition-colors duration-300 pb-1`}
-              >
-                Link 2
+                Denunciar
                 <span
                   className={`absolute bottom-0 left-0 w-0 h-0.5 ${textColor === 'text-palette-5' ? 'bg-palette-5' : 'bg-palette-3'} group-hover:w-full transition-all duration-300 ease-in-out`}
                 ></span>
@@ -99,10 +85,21 @@ const Header = () => {
             </li>
             <li>
               <a
-                href="#"
+                href="/noticias"
                 className={`relative group ${textColor} hover:text-opacity-80 transition-colors duration-300 pb-1`}
               >
-                Link 3
+                Notícias
+                <span
+                  className={`absolute bottom-0 left-0 w-0 h-0.5 ${textColor === 'text-palette-5' ? 'bg-palette-5' : 'bg-palette-3'} group-hover:w-full transition-all duration-300 ease-in-out`}
+                ></span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="/sobre-nos"
+                className={`relative group ${textColor} hover:text-opacity-80 transition-colors duration-300 pb-1`}
+              >
+                Sobre Nós
                 <span
                   className={`absolute bottom-0 left-0 w-0 h-0.5 ${textColor === 'text-palette-5' ? 'bg-palette-5' : 'bg-palette-3'} group-hover:w-full transition-all duration-300 ease-in-out`}
                 ></span>
@@ -147,18 +144,18 @@ const Header = () => {
       >
         <ul className="flex flex-col items-center space-y-4">
           <li>
-            <a href="#" className={`${textColor} hover:text-opacity-80 transition-colors duration-300`}>
-              Link 1
+            <a href="/denunciar" className={`${textColor} hover:text-opacity-80 transition-colors duration-300`}>
+              Denunciar
             </a>
           </li>
           <li>
-            <a href="#" className={`${textColor} hover:text-opacity-80 transition-colors duration-300`}>
-              Link 2
+            <a href="/noticias" className={`${textColor} hover:text-opacity-80 transition-colors duration-300`}>
+              Notícias
             </a>
           </li>
           <li>
-            <a href="#" className={`${textColor} hover:text-opacity-80 transition-colors duration-300`}>
-              Link 3
+            <a href="/sobre-nos" className={`${textColor} hover:text-opacity-80 transition-colors duration-300`}>
+              Sobre Nós
             </a>
           </li>
           <li>
