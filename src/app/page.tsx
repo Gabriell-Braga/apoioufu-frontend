@@ -1,5 +1,6 @@
 // page.tsx
 import React from 'react';
+import Image from 'next/image';
 
 // Este é o componente da sua página "Home" no Pages Router.
 // Ele será acessível na rota /home.
@@ -28,7 +29,7 @@ const HomePage = () => {
           <div className="grid grid-cols-4 grid-rows-2 gap-5 w-full">
             {/* Exemplo de cards de notícias */}
             {[...Array(8)].map((_, index) => (
-              <div key={index} className="bg-palette-5 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-start justify-center">
+              <div key={index} className="bg-palette-5 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-start justify-center">
                 <div className="w-full">
                   <img src={`/noticia-${index + 1}.jpg`} alt={`Notícia ${index + 1}`} className="w-full h-40 object-cover rounded-lg mb-4" />
                 </div>
@@ -41,23 +42,34 @@ const HomePage = () => {
               </div>
             ))}
           </div>
-          <a href="/noticias" className="bg-palette-3 text-palette-5 py-2 px-4 rounded-full cursor-pointer hover:bg-palette-1 transition-colors ease-in-out duration-200">Ver mais notícias</a>
+          <a href="/noticias" className="bg-palette-3 text-palette-5 py-2 px-4 rounded-full cursor-pointer hover:bg-palette-2 transition-colors ease-in-out duration-200">Ver mais notícias</a>
         </div>
       </div>
 
       {/* banner final */}
       <div className="w-full flex items-center justify-center my-16">
         <div className="w-[1200px] bg-size-cover bg-position-center rounded-4xl shadow-lg overflow-hidden">
-          <div className="bg-palette-3 h-full w-full flex flex-col items-end justify-center text-palette-5 p-10 gap-10">
-            <h1 className="text-6xl font-semibold">Juntos somos mais fortes!</h1>
-            <p className="max-w-96 text-end">Apoie a luta contra a opressão. Sua participação é fundamental!</p>
-            <button className="bg-palette-5 text-palette-3 py-2 px-4 rounded-full cursor-pointer hover:bg-palette-1 transition-colors ease-in-out duration-200">Saiba mais</button>
+          <div className="bg-palette-3 h-full w-full flex items-center justify-between text-palette-5 p-10 gap-5">
+            <div className="w-2/5">
+              <Image
+                src="/banner-final.png"
+                alt="Cards Banner Final"
+                width={500}
+                height={300}
+                className="w-full"
+              />
+            </div>
+            <div className="flex flex-col items-end justify-between w-full gap-5">
+              <h2 className="text-4xl font-semibold">Juntos somos mais fortes!</h2>
+              <p className="text-end">Apoie a luta contra o racismo e a opressão no ambiente universitário. Cada denúncia e ato de solidariedade são cruciais para desmantelar preconceitos e construir uma comunidade acadêmica justa. Sua participação é fundamental: ela empodera vozes e inspira a mudança.</p>
+              <button className="bg-palette-5 text-palette-3 py-2 px-4 rounded-full cursor-pointer hover:bg-palette-1 transition-colors ease-in-out duration-200">Denunciar</button>
+            </div>            
           </div>
         </div>
       </div>
 
       {/* footer */}
-      <footer className="w-full bg-palette-3 text-palette-3 py-8">
+      <footer className="w-full bg-palette-2 text-palette-5 py-8">
         <div className="w-full max-w-[1200px] mx-auto flex items-center justify-between">
           <p className="text-sm text-palette-5">© 2025 Apoio UFU. Todos os direitos reservados.</p>
           <div className="flex items-center gap-4">
