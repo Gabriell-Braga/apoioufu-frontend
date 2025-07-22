@@ -13,6 +13,10 @@
   --foreground: var(--palette-3); /* Azul-esverdeado muito escuro como foreground padrão */
 }
 
+.size-control{
+  @apply xl:min-w-[1200px] xl:w-[1200px] xl:p-0 px-5 w-full min-w-full;
+}
+
 @theme inline {
   /* Definição de cores da paleta */
   --color-palette-1: var(--palette-1);
@@ -22,14 +26,6 @@
   --color-palette-5: var(--palette-5);
 
   --font-sans: var(--font-montserrat);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Definição de background e foreground para o tema escuro */
-    --background: var(--color-palette-3); /* Azul-esverdeado muito escuro como background no modo escuro */
-    --foreground: var(--color-palette-5); /* Branco como foreground no modo escuro */
-  }
 }
 
 body {

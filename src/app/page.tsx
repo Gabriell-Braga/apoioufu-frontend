@@ -9,11 +9,11 @@ const HomePage = () => {
     <div className="flex flex-col items-center justify-start min-h-screen bg-palette-5 text-palette-3">
 
       {/* banner */}
-      <div className="w-full flex items-center justify-center mt-24">
-        <div className="w-[1200px] h-[500px] bg-[url('/silence-is-violence.jpg')] bg-size-[auto_250%] bg-position-[left_70%_center] rounded-4xl shadow-lg overflow-hidden">
-          <div className="bg-linear-to-l from-palette-3 to-transparent from-10% h-full w-full flex flex-col items-end justify-center text-palette-5 p-12 gap-10">
+      <div className="size-control flex items-center justify-center mt-24">
+        <div className="w-full md:h-[500px] bg-[url('/silence-is-violence.jpg')] bg-size-[auto_250%] bg-position-[left_42%_bottom_35%] md:bg-position-[left_60%_center] lg:bg-position-[left_70%_center] rounded-4xl shadow-lg overflow-hidden">
+          <div className="bg-linear-to-t md:bg-linear-to-l from-palette-3 to-transparent from-20% md:from-10% h-full w-full text-center pt-96 md:pt-0 md:text-end flex flex-col items-center md:items-end justify-center text-palette-5 p-12 gap-10">
             <h1 className="text-6xl font-semibold">Silêncio é Violência!</h1>
-            <p className="max-w-96 text-end">Não fique em <b>silêncio</b> diante da opressão. Sua voz é importante! Aprenda a se manifestar ou entre em contato com a gente.</p>
+            <p className="max-w-96">Não fique em <b>silêncio</b> diante da opressão. Sua voz é importante! Aprenda a se manifestar ou entre em contato com a gente.</p>
             <div className="flex items-center justify-end gap-5">
               <button className="bg-transparent border-2 border-palette-5 text-palette-5 py-2 px-4 rounded-full cursor-pointer hover:bg-palette-5 hover:text-palette-3 transition-colors ease-in-out duration-200">Aprender a se manifestar</button>
               <button className="bg-palette-5 text-palette-3 py-2 px-4 rounded-full cursor-pointer hover:bg-palette-1 transition-colors ease-in-out duration-200">Fazer uma denúncia</button>
@@ -24,9 +24,9 @@ const HomePage = () => {
 
       {/* noticias */}
       <div className="w-full flex items-center justify-center my-16">
-        <div className="w-[1200px] flex flex-col items-center justify-center gap-10">
+        <div className="size-control flex flex-col items-center justify-center gap-10">
           <h2 className="text-4xl font-semibold">Últimas Notícias</h2>
-          <div className="grid grid-cols-4 grid-rows-2 gap-5 w-full">
+          <div className="grid lg:grid-cols-4 lg:grid-rows-2 sm:grid-cols-2 sm:grid-rows-4 grid-cols-1 grid-rows-8 gap-5 w-full">
             {/* Exemplo de cards de notícias */}
             {[...Array(8)].map((_, index) => (
               <div key={index} className="bg-palette-5 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-start justify-center">
@@ -47,10 +47,10 @@ const HomePage = () => {
       </div>
 
       {/* banner final */}
-      <div className="w-full flex items-center justify-center my-16">
-        <div className="w-[1200px] bg-size-cover bg-position-center rounded-4xl shadow-lg overflow-hidden">
-          <div className="bg-palette-3 h-full w-full flex items-center justify-between text-palette-5 p-10 gap-5">
-            <div className="w-2/5">
+      <div className="size-control flex items-center justify-center my-16">
+        <div className="w-full bg-size-cover bg-position-center rounded-4xl shadow-lg overflow-hidden">
+          <div className="bg-palette-3 h-full w-full flex lg:flex-row flex-col items-center justify-between text-palette-5 p-10 gap-5">
+            <div className="lg:w-2/5 sm:w-2/3 w-full">
               <Image
                 src="/banner-final.png"
                 alt="Cards Banner Final"
@@ -59,25 +59,15 @@ const HomePage = () => {
                 className="w-full"
               />
             </div>
-            <div className="flex flex-col items-end justify-between w-full gap-5">
+            <div className="flex flex-col items-center lg:items-end justify-between w-full gap-5 lg:text-end text-center">
               <h2 className="text-4xl font-semibold">Juntos somos mais fortes!</h2>
-              <p className="text-end">Apoie a luta contra o racismo e a opressão no ambiente universitário. Cada denúncia e ato de solidariedade são cruciais para desmantelar preconceitos e construir uma comunidade acadêmica justa. Sua participação é fundamental: ela empodera vozes e inspira a mudança.</p>
+              <p>Apoie a luta contra o racismo e a opressão no ambiente universitário. Cada denúncia e ato de solidariedade são cruciais para desmantelar preconceitos e construir uma comunidade acadêmica justa. Sua participação é fundamental: ela empodera vozes e inspira a mudança.</p>
               <button className="bg-palette-5 text-palette-3 py-2 px-4 rounded-full cursor-pointer hover:bg-palette-1 transition-colors ease-in-out duration-200">Denunciar</button>
             </div>            
           </div>
         </div>
       </div>
 
-      {/* footer */}
-      <footer className="w-full bg-palette-2 text-palette-5 py-8">
-        <div className="w-full max-w-[1200px] mx-auto flex items-center justify-between">
-          <p className="text-sm text-palette-5">© 2025 Apoio UFU. Todos os direitos reservados.</p>
-          <div className="flex items-center gap-4">
-            <a href="#" className="text-gray-200 hover:text-palette-1">Política de Privacidade</a>
-            <a href="#" className="text-gray-200 hover:text-palette-1">Termos de Uso</a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

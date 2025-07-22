@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 export const metadata: Metadata = {
   title: "Apoio UFU",
@@ -23,10 +24,11 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={montserrat.variable}>
       <body>
-        <Header /> {/* Adicione seu componente Header aqui */}
-        <main className="pt-16"> {/* Adicione um padding-top para o conteúdo não ficar por baixo do header fixo */}
-          {children} {/* Isso renderiza o conteúdo da sua page.tsx e outras rotas */}
+        <Header />
+        <main className="pt-16">
+          {children}
         </main>
+        <Footer />
       </body>
     </html>
   );
