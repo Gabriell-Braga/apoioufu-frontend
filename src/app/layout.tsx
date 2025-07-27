@@ -7,12 +7,16 @@ import Footer from './components/Footer';
 export const metadata: Metadata = {
   title: "Apoio UFU",
   description: "Apoio à comunidade da UFU",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  }
 };
 
 const montserrat = Montserrat({
-  subsets: ["latin-ext"], // Inclua o subset para suporte a caracteres estendidos (útil para português)
-  variable: "--font-montserrat", // Defina uma variável CSS para usar no CSS e Tailwind
-  display: "swap", // Opcional: Garante que o texto fique visível durante o carregamento da fonte
+  subsets: ["latin-ext"],
+  variable: "--font-montserrat",
+  display: "swap",
 });
 
 
@@ -25,10 +29,11 @@ export default function RootLayout({
     <html lang="pt-BR" className={montserrat.variable}>
       <body>
         <Header />
-        <main className="pt-16">
+        <main className="pt-40 flex flex-col items-center justify-between min-h-screen">
           {children}
+          <Footer />
         </main>
-        <Footer />
+        
       </body>
     </html>
   );

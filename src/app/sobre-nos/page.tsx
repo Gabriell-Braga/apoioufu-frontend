@@ -5,7 +5,7 @@ import Image from 'next/image'; // Importa o componente Image do Next.js para ot
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen mt-24 flex justify-center">
+    <div className="min-h-screen flex justify-center">
       {/* O cabeçalho e o rodapé foram removidos daqui, pois são componentes globais */}
       <main className="size-control pb-12">
         {/* Seção de Título */}
@@ -19,7 +19,7 @@ export default function AboutPage() {
         </section>
 
         {/* Seção Principal de Conteúdo */}
-        <section className="bg-white mb-12">
+        <section className="bg-white my-24">
           <div className="flex flex-col md:flex-row items-center md:space-x-8">
             <div className="md:w-1/2 mb-8 md:mb-0">
               <h2 className="text-3xl font-bold text-palette-3 mb-4">Nossa Missão</h2>
