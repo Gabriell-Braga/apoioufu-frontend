@@ -2,21 +2,37 @@
 "use client"; // Adicione esta linha no topo do arquivo para marcá-lo como um Client Component
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { signOut } from 'firebase/auth';
+import { useAuth } from '../../../lib/AuthContext'; // Importa o hook do seu contexto
+import { auth } from '../../../lib/firebase'; // Importa a instância do auth do seu arquivo firebase.js
 
 const Header = () => {
-  // Estado para controlar a cor de fundo do cabeçalho
-  // Usa a cor 5 da paleta como background inicial (branco)
+  // Pega o estado do usuário e o estado de carregamento do AuthContext
+  const { user, userData, loading } = useAuth();
+  const router = useRouter();
+
+  // Estados para controlar a cor de fundo do cabeçalho
   const [headerBg, setHeaderBg] = useState('bg-palette-5');
   // Estado para controlar a cor do texto/links
-  // Usa a cor 3 da paleta como foreground inicial (azul-esverdeado muito escuro)
   const [textColor, setTextColor] = useState('text-palette-3');
   // Estado para controlar o tamanho da logo
   const [logoSize, setLogoSize] = useState('h-16 w-auto'); // Tamanho inicial da logo
-  // Estado para controlar a fonte da logo (altera entre logo escura e logo branca)
-  // Lembre-se de substituir por seus caminhos de logo reais na pasta /public
+  // Estado para controlar a fonte da logo
   const [logoSrc, setLogoSrc] = useState('/logo-escrita.png'); // Logo inicial (escura)
   // Estado para controlar a visibilidade do menu mobile
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Lógica para deslogar do Firebase
+  const handleLogout = async () => {
+    try {
+        await signOut(auth);
+        // Redireciona para a página de login após o logout
+        router.push('/login');
+    } catch (error) {
+        console.error("Erro ao fazer logout:", error);
+    }
+  };
 
   useEffect(() => {
     // Verifica se window está definido para garantir que o código só é executado no lado do cliente
@@ -53,6 +69,16 @@ const Header = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+  
+  // Exibe um estado de carregamento para evitar o "flickering"
+  if (loading) {
+    return null;
+  }
+
+  // Verifica o nível de autorização do usuário
+  const userRole = userData?.nivel_autorizacao;
+  const isWriterOrAdmin = userRole === 'escritor' || userRole === 'admin';
+  const isAdmin = userRole === 'admin';
 
   return (
     <header
@@ -71,7 +97,7 @@ const Header = () => {
 
         {/* Links de navegação para desktop */}
         <nav className="hidden md:block"> {/* Oculta em telas pequenas, mostra em telas médias e grandes */}
-          <ul className="flex space-x-6">
+          <ul className="flex space-x-6 items-center">
             <li>
               <a
                 href="/denunciar"
@@ -105,16 +131,55 @@ const Header = () => {
                 ></span>
               </a>
             </li>
+            {isWriterOrAdmin && (
+              <li>
+                <a
+                  href="/escrever-noticia"
+                  className={`relative group ${textColor} hover:text-opacity-80 transition-colors duration-300 pb-1`}
+                >
+                  Escrever Notícia
+                  <span
+                    className={`absolute bottom-0 left-0 w-0 h-0.5 ${textColor === 'text-palette-5' ? 'bg-palette-5' : 'bg-palette-3'} group-hover:w-full transition-all duration-300 ease-in-out`}
+                  ></span>
+                </a>
+              </li>
+            )}
+            {isAdmin && (
+              <li>
+                <a
+                  href="/users"
+                  className={`relative group ${textColor} hover:text-opacity-80 transition-colors duration-300 pb-1`}
+                >
+                  Usuários
+                  <span
+                    className={`absolute bottom-0 left-0 w-0 h-0.5 ${textColor === 'text-palette-5' ? 'bg-palette-5' : 'bg-palette-3'} group-hover:w-full transition-all duration-300 ease-in-out`}
+                  ></span>
+                </a>
+              </li>
+            )}
             <li>
-              <a
-                href="/login"
-                className={`relative group ${textColor} hover:text-opacity-80 transition-colors duration-300 font-bold pb-1`}
-              >
-                Login
-                <span
-                  className={`absolute bottom-0 left-0 w-0 h-0.5 ${textColor === 'text-palette-5' ? 'bg-palette-5' : 'bg-palette-3'} group-hover:w-full transition-all duration-300 ease-in-out`}
-                ></span>
-              </a>
+              {/* Renderização condicional do botão de login/logout */}
+              {user ? (
+                <button
+                  onClick={handleLogout}
+                  className={`relative group ${textColor} hover:text-opacity-80 transition-colors duration-300 font-bold cursor-pointer`}
+                >
+                  Sair
+                  <span
+                    className={`absolute bottom-0 left-0 w-0 h-0.5 ${textColor === 'text-palette-5' ? 'bg-palette-5' : 'bg-palette-3'} group-hover:w-full transition-all duration-300 ease-in-out`}
+                  ></span>
+                </button>
+              ) : (
+                <a
+                  href="/login"
+                  className={`relative group ${textColor} hover:text-opacity-80 transition-colors duration-300 font-bold pb-1`}
+                >
+                  Login
+                  <span
+                    className={`absolute bottom-0 left-0 w-0 h-0.5 ${textColor === 'text-palette-5' ? 'bg-palette-5' : 'bg-palette-3'} group-hover:w-full transition-all duration-300 ease-in-out`}
+                  ></span>
+                </a>
+              )}
             </li>
           </ul>
         </nav>
@@ -158,10 +223,34 @@ const Header = () => {
               Sobre Nós
             </a>
           </li>
+          {isWriterOrAdmin && (
+            <li>
+              <a href="/escrever-noticia" className={`${textColor} hover:text-opacity-80 transition-colors duration-300`}>
+                Escrever Notícia
+              </a>
+            </li>
+          )}
+          {isAdmin && (
+            <li>
+              <a href="/users" className={`${textColor} hover:text-opacity-80 transition-colors duration-300`}>
+                Usuários
+              </a>
+            </li>
+          )}
           <li>
-            <a href="/login" className={`${textColor} hover:text-opacity-80 transition-colors duration-300 font-bold`}>
-              Login
-            </a>
+            {/* Renderização condicional para o menu mobile */}
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className={`${textColor} hover:text-opacity-80 transition-colors duration-300 font-bold cursor-pointer`}
+              >
+                Sair
+              </button>
+            ) : (
+              <a href="/login" className={`${textColor} hover:text-opacity-80 transition-colors duration-300 font-bold`}>
+                Login
+              </a>
+            )}
           </li>
         </ul>
       </div>

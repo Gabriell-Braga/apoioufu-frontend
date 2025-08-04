@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "firebase": "^12.0.0",
     "geist": "^1.4.2",
     "montserrat": "^1.0.1",
     "next": "15.3.2",
