@@ -3,37 +3,54 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../../lib/firebase'; // Ajuste o caminho do import
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth'; // Importado o 'signOut'
+import { doc, getDoc } from 'firebase/firestore'; // Importado o 'getDoc'
+import { auth, db } from '../../../lib/firebase'; // Importa a instância do auth do seu arquivo firebase.js
 
+// Define os tipos para as props do componente.
 interface LoginPageProps {
-  // A prop setCurrentPage não é mais necessária para o redirecionamento
-  // porque o useRouter do Next.js irá gerenciar isso.
-  // No entanto, ela é mantida para o link "Registre-se".
   setCurrentPage: (page: 'login' | 'registrar') => void;
 }
 
 export default function LoginPage({ setCurrentPage }: LoginPageProps) {
+    // Estados para gerenciar os valores dos campos do formulário
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    // Estado para exibir mensagens de erro
     const [error, setError] = useState<string | null>(null);
+    // Estado para controlar o carregamento do botão
     const [loading, setLoading] = useState(false);
     const router = useRouter(); // Instância do router para navegação
 
+    // Função para lidar com o envio do formulário de login
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
-        setError(null);
+        setLoading(true); // Ativa o estado de carregamento
+        setError(null); // Limpa qualquer erro anterior
 
         try {
-            await signInWithEmailAndPassword(auth, email, password);
-            // Se o login for bem-sucedido, redireciona para a página inicial ('/')
-            router.push('/');
+            // Tenta fazer o login com email e senha usando o Firebase
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            // Busca os dados do usuário no Firestore para verificar o nível de autorização
+            const userDocRef = doc(db, 'users', user.uid);
+            const docSnap = await getDoc(userDocRef);
+
+            if (docSnap.exists() && docSnap.data().nivel_autorizacao === 'sem_autorizacao') {
+                // Se o usuário não tem autorização, faz o logout e exibe um erro
+                await signOut(auth);
+                setError('Sua conta ainda não foi autorizada por um administrador. Aguarde a aprovação.');
+            } else {
+                // Se o login for bem-sucedido e autorizado, redireciona para a página inicial ('/')
+                router.push('/');
+            }
         } catch (err) {
             console.error("Erro no login:", err);
+            // Se houver um erro, exibe uma mensagem amigável
             setError('Credenciais inválidas. Por favor, tente novamente.');
         } finally {
-            setLoading(false);
+            setLoading(false); // Desativa o estado de carregamento
         }
     };
 
@@ -65,11 +82,12 @@ export default function LoginPage({ setCurrentPage }: LoginPageProps) {
                             required
                         />
                     </div>
+                    {/* Exibe a mensagem de erro se houver */}
                     {error && <div className="text-red-500 text-sm text-center mb-4">{error}</div>}
                     <button
                         type="submit"
                         className={`w-full text-palette-5 py-2 rounded-md transition-colors duration-200 disabled:opacity-50 ${loading ? 'bg-palette-2' : 'bg-palette-3 hover:bg-palette-2'}`}
-                        disabled={loading}
+                        disabled={loading} // Desabilita o botão durante o carregamento
                     >
                         {loading ? 'Entrando...' : 'Entrar'}
                     </button>
