@@ -3,12 +3,16 @@ import { FieldValue } from "firebase/firestore";
 export interface Noticia {
     id: string;
     titulo: string;
+    slug?: string;
     resumo: string;
     conteudo?: string;
     autor?: string;
+    autorId?: string;
     dataCriacao?: { toDate: () => Date } | FieldValue; // Lida com o formato Timestamp do Firestore
+    dataAtualizacao?: { toDate: () => Date } | FieldValue; // Lida com o formato Timestamp do Firestore
     tag?: string;
     imagem?: string;
+    status?: 'draft' | 'published'; // Novo campo para o status da notícia
 }
 
 export interface UserDataType {

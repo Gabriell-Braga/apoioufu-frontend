@@ -163,7 +163,7 @@ function UsersPage() {
 
     return (
         <ProtectedPage requiredRole="admin">
-            <div className="container mx-auto p-8">
+            <div className="size-control p-8">
                 <h1 className="text-3xl font-bold text-gray-900 mb-6">Gerenciamento de Usuários</h1>
 
                 <div className="bg-white shadow-lg rounded-lg p-6">

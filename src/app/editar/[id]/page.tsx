@@ -1,54 +1,31 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '../../../lib/AuthContext';
-import ProtectedPage from '../components/ProtectedPage';
-import { db } from '../../../lib/firebase';
-import { collection, addDoc, serverTimestamp, FieldValue } from 'firebase/firestore';
-import { Noticia } from '../../../types';
+import React, { useState, useEffect } from 'react';
+import { useRouter, useParams } from 'next/navigation';
+import { useAuth } from '../../../../lib/AuthContext';
+import ProtectedPage from '../../components/ProtectedPage';
+import { db } from '../../../../lib/firebase';
+import { doc, getDoc, updateDoc, serverTimestamp, FieldValue } from 'firebase/firestore';
+import { Noticia } from '../../../../types';
 
 // Importa os componentes do TinyMCE
 import { Editor } from '@tinymce/tinymce-react';
 
-// Função para gerar um slug a partir de uma string
-const generateSlug = (text: string, date: number) => {
-    const dateObj = new Date(date);
-    const year = dateObj.getFullYear();
-    const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
-    const day = dateObj.getDate().toString().padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day}`;
-
-    const slugText = text
-        .toString()
-        .toLowerCase()
-        .replace(/[áàãâä]/g, 'a')
-        .replace(/[éèêë]/g, 'e')
-        .replace(/[íìîï]/g, 'i')
-        .replace(/[óòõôö]/g, 'o')
-        .replace(/[úùûü]/g, 'u')
-        .replace(/ç/g, 'c')
-        .replace(/[^\w\s-]/g, '')
-        .replace(/[\s_]+/g, '-')
-        .replace(/^-+|-+$/g, '');
-  
-    return `${slugText}-${formattedDate}`;
-};
-
-const WriteArticlePage = () => {
+const EditarNoticiaPage = () => {
     const { userData } = useAuth();
-    const user = useAuth().user;
     const router = useRouter();
+    const params = useParams();
+    const id = params.id as string;
 
     // Estados para o formulário
     const [titulo, setTitulo] = useState('');
     const [resumo, setResumo] = useState('');
-    const [conteudo, setConteudo] = useState(''); // O conteúdo agora será HTML/texto rico
+    const [conteudo, setConteudo] = useState('');
     const [tag, setTag] = useState('');
     const [imagem, setImagem] = useState('');
     
     // Estados para feedback
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [message, setMessage] = useState<string | null>(null);
 
@@ -57,66 +34,101 @@ const WriteArticlePage = () => {
         setConteudo(content);
     };
 
-    // Adicionei o parâmetro 'status' para a função de submissão
-    const handleSubmit = async (e: React.FormEvent, status: 'draft' | 'published') => {
+    useEffect(() => {
+        const fetchNoticia = async () => {
+            if (!id) return;
+            try {
+                const docRef = doc(db, 'noticias', id);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    const data = docSnap.data() as Noticia;
+                    setTitulo(data.titulo);
+                    setResumo(data.resumo);
+                    setConteudo(data.conteudo || '');
+                    setTag(data.tag || '');
+                    setImagem(data.imagem || '');
+                } else {
+                    setError("Notícia não encontrada.");
+                }
+            } catch (err) {
+                console.error("Erro ao carregar notícia para edição:", err);
+                setError("Ocorreu um erro ao carregar a notícia.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchNoticia();
+    }, [id]);
+
+    const handleUpdate = async (e: React.FormEvent, status: 'draft' | 'published') => {
         e.preventDefault();
         setLoading(true);
         setError(null);
         setMessage(null);
 
-        // CORREÇÃO: Verificação para garantir que userData e userData.id existam
-        if (!userData || !userData.nome || !user.uid) {
+        if (!userData || !userData.nome) {
             setError('Não foi possível identificar o autor da notícia. Por favor, tente novamente.');
             setLoading(false);
             return;
         }
 
         try {
-            // Cria o objeto da nova notícia com o novo campo 'status'
-            const dataCriacaoTimestamp = Date.now();
-            const newNoticia: Omit<Noticia, 'id'> = {
-                titulo,
-                slug: generateSlug(titulo, dataCriacaoTimestamp),
-                resumo,
-                conteudo,
-                autor: userData.nome + ' ' + (userData.sobrenome || ''),
-                autorId: user.uid,
-                dataCriacao: serverTimestamp() as FieldValue,
+            const updatedNoticia = {
+                titulo: titulo,
+                resumo: resumo,
+                conteudo: conteudo,
+                dataAtualizacao: serverTimestamp() as FieldValue,
                 tag,
                 imagem,
-                status, // Adiciona o status ao objeto
+                status,
             };
 
-            await addDoc(collection(db, 'noticias'), newNoticia);
+            const docRef = doc(db, 'noticias', id);
+            await updateDoc(docRef, updatedNoticia);
 
             if (status === 'published') {
-                setMessage('Notícia publicada com sucesso! Redirecionando...');
-                setTimeout(() => {
-                    router.push('/noticias');
-                }, 2000);
+                setMessage('Notícia atualizada e publicada com sucesso! Redirecionando...');
             } else {
-                setMessage('Notícia salva como rascunho com sucesso!');
+                setMessage('Notícia atualizada e salva como rascunho com sucesso!');
             }
             
-            // Limpa o formulário após o envio bem-sucedido
-            setTitulo('');
-            setResumo('');
-            setConteudo('');
-            setTag('');
-            setImagem('');
+            setTimeout(() => {
+                router.push('/gerenciar-noticias');
+            }, 2000);
 
         } catch (err) {
-            console.error("Erro ao publicar notícia:", err);
-            setError('Ocorreu um erro ao tentar publicar a notícia. Por favor, tente novamente.');
+            console.error("Erro ao atualizar notícia:", err);
+            setError('Ocorreu um erro ao tentar atualizar a notícia. Por favor, tente novamente.');
         } finally {
             setLoading(false);
         }
     };
 
+    if (loading) {
+        return (
+            <ProtectedPage requiredRole="escritor">
+                <div className="flex justify-center items-center h-screen">
+                    <p className="text-xl">Carregando notícia para edição...</p>
+                </div>
+            </ProtectedPage>
+        );
+    }
+    
+    if (error) {
+        return (
+            <ProtectedPage requiredRole="escritor">
+                <div className="flex justify-center items-center h-screen">
+                    <p className="text-red-500 text-xl">{error}</p>
+                </div>
+            </ProtectedPage>
+        );
+    }
+
     return (
         <ProtectedPage requiredRole="escritor">
-            <div className="size-control p-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-6">Escrever Notícia</h1>
+            <div className="size-control mb-16">
+                <h1 className="text-3xl font-bold text-gray-900 mb-6">Editar Notícia</h1>
                 <div className="bg-white rounded-lg shadow-lg p-6">
                     <form>
                         <div className="mb-4">
@@ -141,7 +153,6 @@ const WriteArticlePage = () => {
                                 required
                             />
                         </div>
-                        {/* NOVO: Substitui o textarea pelo editor de texto rico TinyMCE */}
                         <div className="mb-4">
                             <label htmlFor="conteudo" className="block text-sm font-medium text-gray-700 mb-2">Conteúdo</label>
                             <Editor
@@ -151,13 +162,11 @@ const WriteArticlePage = () => {
                                 init={{
                                     height: 500,
                                     menubar: true,
-                                    // Aumentando a lista de plugins para incluir mais recursos
                                     plugins: [
                                         'advlist autolink lists link image charmap print preview anchor',
                                         'searchreplace visualblocks code fullscreen',
                                         'insertdatetime media table paste code help wordcount'
                                     ],
-                                    // Adicionando mais botões à barra de ferramentas
                                     toolbar:
                                         'undo redo | styleselect | forecolor backcolor | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media | code fullscreen | table | help'
                                 }}
@@ -190,7 +199,7 @@ const WriteArticlePage = () => {
                         <div className="flex space-x-4">
                             <button
                                 type="button"
-                                onClick={(e) => handleSubmit(e, 'draft')}
+                                onClick={(e) => handleUpdate(e, 'draft')}
                                 className={`flex-1 text-gray-700 py-2 rounded-md transition-colors duration-200 disabled:opacity-50 border border-gray-300 ${loading ? 'bg-gray-200' : 'hover:bg-gray-200'}`}
                                 disabled={loading}
                             >
@@ -198,7 +207,7 @@ const WriteArticlePage = () => {
                             </button>
                             <button
                                 type="submit"
-                                onClick={(e) => handleSubmit(e, 'published')}
+                                onClick={(e) => handleUpdate(e, 'published')}
                                 className={`flex-1 text-palette-5 py-2 rounded-md transition-colors duration-200 disabled:opacity-50 ${loading ? 'bg-palette-2' : 'bg-palette-3 hover:bg-palette-2'}`}
                                 disabled={loading}
                             >
@@ -212,4 +221,4 @@ const WriteArticlePage = () => {
     );
 };
 
-export default WriteArticlePage;
+export default EditarNoticiaPage;

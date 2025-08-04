@@ -117,9 +117,9 @@ const HomePage = () => {
                                             {noticiaDestaque.tag || "Sem Tag"}
                                         </div>
                                     </div>
-                                    <div className="flex flex-col items-start justify-between w-full md:w-1/2 p-6">
+                                    <div className="flex flex-col items-start justify-start w-full md:w-1/2 p-6">
                                         <p className="text-xs text-gray-500">
-                                            {noticiaDestaque.dataCriacao?.toDate().toLocaleDateString('pt-BR') || "Data Indisponível"} · {noticiaDestaque.autor || "Autor Desconhecido"}
+                                            {noticiaDestaque.dataCriacao && (noticiaDestaque.dataCriacao as Timestamp).toDate().toLocaleDateString('pt-BR') || "Data Indisponível"} · {noticiaDestaque.autor || "Autor Desconhecido"}
                                         </p>
                                         <h1 className="text-xl md:text-2xl lg:text-4xl font-semibold mb-2">
                                             {noticiaDestaque.titulo}
@@ -150,16 +150,18 @@ const HomePage = () => {
                                             </div>
                                         </div>
                                         <div className="flex flex-col items-start justify-between w-full p-6 h-full">
-                                            <p className="text-xs text-gray-500">
-                                                {noticia.dataCriacao?.toDate().toLocaleDateString('pt-BR') || "Data Indisponível"} · {noticia.autor || "Autor Desconhecido"}
-                                            </p>
-                                            <h3 className="text-xl font-semibold mb-2">
-                                                {noticia.titulo}
-                                            </h3>
-                                            <p className="text-xs h-20 overflow-hidden text-ellipsis">
-                                                {noticia.resumo}
-                                            </p>
-                                            <a href={`/noticias/${noticia.id}`} className="text-palette-2 hover:text-palette-1 mt-2">
+                                            <div className='flex flex-col items-start justify-start'>
+                                                <p className="text-xs text-gray-500">
+                                                    {noticia.dataCriacao && (noticia.dataCriacao as Timestamp).toDate().toLocaleDateString('pt-BR') || "Data Indisponível"} · {noticia.autor || "Autor Desconhecido"}
+                                                </p>
+                                                <h3 className="text-xl font-semibold mb-2">
+                                                    {noticia.titulo}
+                                                </h3>
+                                                <p className="text-xs h-20 overflow-hidden text-ellipsis">
+                                                    {noticia.resumo}
+                                                </p>
+                                            </div>
+                                            <a href={`/noticias/${noticia.id}`} className="text-palette-2 hover:text-palette-1 mt-2 justify-self-end">
                                                 Ler mais →
                                             </a>
                                         </div>
