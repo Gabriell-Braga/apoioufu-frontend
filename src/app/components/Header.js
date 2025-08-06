@@ -279,20 +279,20 @@ const Header = () => {
               <div className="relative w-full text-center">
                 <button
                   onClick={toggleWriterDropdown}
-                  className={`relative ${textColor} hover:text-opacity-80 transition-colors duration-300 mb-2`}
+                  className={`relative ${textColor} hover:text-opacity-80 transition-colors duration-300`}
                 >
                   Escritores <i className={`fas fa-chevron-down ml-1 text-xs transition-transform duration-300 ${isWriterDropdownOpen ? 'rotate-180' : ''}`}></i>
                 </button>
-                <div className={`py-1 w-full flex flex-col items-center justify-center bg-gray-100 ${isWriterDropdownOpen ? 'block' : 'hidden'}`}>
+                <div className={`py-1 w-full flex flex-col items-center justify-center bg-gray-100 mt-2 ${isWriterDropdownOpen ? 'block' : 'hidden'}`}>
                   <a
                     href="/escrever-noticia"
-                    className={`block w-full text-center px-4 py-2 text-sm ${textColor} hover:text-red-400 transition-colors duration-300`}
+                    className={`block w-full text-center px-4 py-2 text-sm text-palette-3  hover:text-palette-1 transition-colors duration-300`}
                   >
                     Escrever Notícia
                   </a>
                   <a
                     href="/gerenciar-noticias"
-                    className={`block w-full text-center px-4 py-2 text-sm ${textColor} hover:text-red-400 transition-colors duration-300`}
+                    className={`block w-full text-center px-4 py-2 text-sm text-palette-3  hover:text-palette-1 transition-colors duration-300`}
                   >
                     Gerenciar Notícias
                   </a>
@@ -301,7 +301,7 @@ const Header = () => {
             </li>
           )}
           {/* DROP-DOWN DE USUÁRIO (MOBILE) */}
-          <li className='w-full'>
+          <li className='w-full flex items-center justify-center'>
             {user ? (
               <div className="relative w-full text-center">
                 <button
@@ -313,14 +313,14 @@ const Header = () => {
                 <div className={`py-1 w-full flex flex-col items-center justify-center bg-gray-100 ${isMobileDropdownOpen ? 'block' : 'hidden'}`}>
                   <button
                     onClick={handleLogout}
-                    className={`block text-center px-4 py-2 text-sm ${textColor} hover:text-red-400 transition-colors duration-300`}
+                    className={`block text-center px-4 py-2 text-sm text-palette-3 hover:text-red-400 transition-colors duration-300`}
                   >
                     Sair
                   </button>
                 </div>
               </div>
             ) : (
-              <a href="/login" className={`${textColor} hover:text-opacity-80 transition-colors duration-300 font-bold`}>
+              <a href="/login" className={`${textColor} hover:text-opacity-80 transition-colors duration-300 font-bold mb-2`}>
                 Login
               </a>
             )}

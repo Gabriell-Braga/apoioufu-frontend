@@ -86,6 +86,11 @@ const GerenciarNoticiasPage = () => {
         router.push(`/editar/${id}`);
     };
 
+    // NOVO: Função para lidar com o clique no botão "Ver"
+    const handleView = (slug: string) => {
+        router.push(`/noticia/${slug}`);
+    };
+
     const handleDeleteClick = (id: string) => {
         setNoticiaToDelete(id);
         setShowModal(true);
@@ -113,7 +118,7 @@ const GerenciarNoticiasPage = () => {
     };
     
     const userRole = userData?.nivel_autorizacao;
-    const currentUserId = user?.uid;
+    const currentUserId = user?.uid; // Obtém o UID do usuário logado
 
     if (loading) {
         return (
@@ -230,6 +235,15 @@ const GerenciarNoticiasPage = () => {
                                             )}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            {/* NOVO: Botão "Ver" com lógica de permissão */}
+                                            {(userRole === 'admin' || noticia.autorId === currentUserId || noticia.status === 'published') && (
+                                                <button
+                                                    onClick={() => noticia.slug && handleView(noticia.slug)}
+                                                    className="text-blue-600 hover:text-blue-900 mr-4 cursor-pointer"
+                                                >
+                                                    Ver
+                                                </button>
+                                            )}
                                             {(userRole === 'admin' || noticia.autorId === currentUserId) && (
                                                 <button
                                                     onClick={() => handleEdit(noticia.id)}

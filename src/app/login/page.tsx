@@ -7,12 +7,7 @@ import { signInWithEmailAndPassword, signOut } from 'firebase/auth'; // Importad
 import { doc, getDoc } from 'firebase/firestore'; // Importado o 'getDoc'
 import { auth, db } from '../../../lib/firebase'; // Importa a instância do auth do seu arquivo firebase.js
 
-// Define os tipos para as props do componente.
-interface LoginPageProps {
-  setCurrentPage: (page: 'login' | 'registrar') => void;
-}
-
-export default function LoginPage({ setCurrentPage }: LoginPageProps) {
+export default function LoginPage() {
     // Estados para gerenciar os valores dos campos do formulário
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -92,7 +87,7 @@ export default function LoginPage({ setCurrentPage }: LoginPageProps) {
                         {loading ? 'Entrando...' : 'Entrar'}
                     </button>
                     <div className="mt-4 text-center">
-                        <span>Não tem uma conta? <a onClick={() => setCurrentPage('registrar')} className="text-palette-1 hover:text-palette-4 cursor-pointer">Registre-se</a></span>
+                        <span>Não tem uma conta? <a href='/registrar' className="text-palette-1 hover:text-palette-4 cursor-pointer">Registre-se</a></span>
                     </div>
                 </form>
             </div>

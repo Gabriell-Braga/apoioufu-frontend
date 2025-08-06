@@ -7,12 +7,7 @@ import { createUserWithEmailAndPassword, signOut } from 'firebase/auth'; // Impo
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../../lib/firebase'; // Ajuste o caminho do import
 
-// Define os tipos para as props do componente.
-interface RegisterPageProps {
-  setCurrentPage: (page: 'login' | 'registrar') => void;
-}
-
-export default function RegisterPage({ setCurrentPage }: RegisterPageProps) {
+export default function RegisterPage() {
     // Estados para gerenciar os valores dos campos do formulário
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
@@ -70,7 +65,7 @@ export default function RegisterPage({ setCurrentPage }: RegisterPageProps) {
             setMessage('Sua solicitação de cadastro foi enviada com sucesso! Aguarde a aprovação de um administrador.');
             // Opcional: Redireciona para a página de login após alguns segundos
             setTimeout(() => {
-                setCurrentPage('login');
+                window.location.href = '/login'; // Redireciona para a página de login
             }, 3000);
 
         } catch (err) {
@@ -154,7 +149,7 @@ export default function RegisterPage({ setCurrentPage }: RegisterPageProps) {
                         {loading ? 'Enviando...' : 'Enviar solicitação'}
                     </button>
                     <div className="mt-4 text-center">
-                        <span>Já tem uma conta? <a onClick={() => setCurrentPage('login')} className="text-palette-1 hover:text-palette-4 cursor-pointer">Entrar</a></span>
+                        <span>Já tem uma conta? <a href='/login' className="text-palette-1 hover:text-palette-4 cursor-pointer">Entrar</a></span>
                     </div>
                 </form>
             </div>
