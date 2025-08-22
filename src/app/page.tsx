@@ -52,11 +52,11 @@ const HomePage = () => {
     const outrasNoticias = noticias.slice(1, 9); // Pega as 8 notícias seguintes para o grid
 
     return (
-        <div className="flex flex-col items-center justify-start min-h-screen bg-palette-5 text-palette-3">
+        <div className="size-control bg-palette-5 text-palette-3">
 
             {/* banner */}
-            <div className="size-control flex items-center justify-center">
-                <div className="w-full md:h-[500px] bg-[url('/silence-is-violence.jpg')] bg-size-[auto_250%] bg-position-[left_42%_bottom_35%] md:bg-position-[left_60%_center] lg:bg-position-[left_70%_center] rounded-4xl shadow-lg overflow-hidden">
+            <div className="flex items-center justify-center">
+                <div className="w-full md:h-[500px] relative bg-[url('/silence-is-violence.avif')] bg-size-[auto_250%] bg-position-[left_42%_bottom_35%] md:bg-position-[left_60%_center] lg:bg-position-[left_70%_center] rounded-4xl shadow-lg overflow-hidden">
                     <div className="bg-linear-to-t md:bg-linear-to-l from-palette-3 to-transparent from-20% md:from-10% h-full w-full text-center pt-96 md:pt-0 md:text-end flex flex-col items-center md:items-end justify-center text-palette-5 p-12 gap-10">
                         <h1 className="text-6xl font-semibold">Silêncio é Violência!</h1>
                         <p className="max-w-96">Não fique em <b>silêncio</b> diante da opressão. Sua voz é importante! Aprenda a se manifestar ou entre em contato com a gente.</p>
@@ -69,7 +69,7 @@ const HomePage = () => {
 
             {/* noticias */}
             <div className="w-full flex items-center justify-center my-16">
-                <div className="size-control flex flex-col items-center justify-center gap-10">
+                <div className="flex flex-col items-center justify-center gap-10">
                     <h2 className="text-4xl font-semibold">Últimas Notícias</h2>
                     
                     {noticias.length === 0 ? (
@@ -89,7 +89,7 @@ const HomePage = () => {
                                             width={1200}
                                             height={800}
                                         />
-                                        <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 text-white text-xs p-2 rounded-tl-lg">
+                                        <div className="absolute bottom-0 right-0 bg-black/50 text-white text-xs p-2 rounded-tl-lg">
                                             {noticiaDestaque.tag || "Sem Tag"}
                                         </div>
                                     </div>
@@ -97,9 +97,9 @@ const HomePage = () => {
                                         <p className="text-xs text-gray-500">
                                             {noticiaDestaque.dataCriacao && (noticiaDestaque.dataCriacao as Timestamp).toDate().toLocaleDateString('pt-BR') || "Data Indisponível"} · {noticiaDestaque.autor || "Autor Desconhecido"}
                                         </p>
-                                        <h1 className="text-xl md:text-2xl lg:text-4xl font-semibold mb-2">
+                                        <h2 className="text-xl md:text-2xl lg:text-4xl font-semibold mb-2">
                                             {noticiaDestaque.titulo}
-                                        </h1>
+                                        </h2>
                                         <p className="text-sm h-auto md:h-20 overflow-hidden text-ellipsis">
                                             {noticiaDestaque.resumo}
                                         </p>
@@ -122,7 +122,7 @@ const HomePage = () => {
                                                 width={600}
                                                 height={400}
                                             />
-                                            <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 text-white text-xs p-2 rounded-tl-lg">
+                                            <div className="absolute bottom-0 right-0 bg-black/50 text-white text-xs p-2 rounded-tl-lg">
                                                 {noticia.tag || "Sem Tag"}
                                             </div>
                                         </div>
@@ -156,7 +156,7 @@ const HomePage = () => {
             </div>
 
             {/* banner final */}
-            <div className="size-control flex items-center justify-center my-16">
+            <div className="flex items-center justify-center my-16">
                 <div className="w-full bg-size-cover bg-position-center rounded-4xl shadow-lg overflow-hidden">
                     <div className="bg-palette-3 h-full w-full flex lg:flex-row flex-col items-center justify-between text-palette-5 p-10 gap-5">
                         <div className="lg:w-2/5 sm:w-2/3 w-full">

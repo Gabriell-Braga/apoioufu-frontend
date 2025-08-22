@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { signOut } from 'firebase/auth';
 import { useAuth } from '../../../lib/AuthContext';
 import { auth } from '../../../lib/firebase';
+import Image from 'next/image';
 
 const Header = () => {
   const { user, userData, loading } = useAuth();
@@ -106,10 +107,12 @@ const Header = () => {
       <div className="container size-control flex items-center justify-between">
         {/* Logo */}
         <a href="/" className="flex-shrink-0">
-          <img
+          <Image
             src={logoSrc}
             alt="Logo da Empresa"
             className={`${logoSize} transition-all duration-300 ease-in-out`}
+            width={909} // ou preencher
+            height={545} // ou preencher
           />
         </a>
 
@@ -149,6 +152,19 @@ const Header = () => {
                 ></span>
               </a>
             </li>
+            {isAdmin && (
+              <li>
+                <a
+                  href="/feedbacks" // Link para a página de feedbacks
+                  className={`relative group ${textColor} hover:text-opacity-80 transition-colors duration-300 pb-1`}
+                >
+                  Feedbacks
+                  <span
+                    className={`absolute bottom-0 left-0 w-0 h-0.5 ${textColor === 'text-palette-5' ? 'bg-palette-5' : 'bg-palette-3'} group-hover:w-full transition-all duration-300 ease-in-out`}
+                  ></span>
+                </a>
+              </li>
+            )}
             {isAdmin && (
               <li>
                 <a
@@ -229,7 +245,7 @@ const Header = () => {
 
         {/* Botão de menu para mobile */}
         <div className="md:hidden">
-          <button onClick={toggleMobileMenu} className={`${textColor} focus:outline-none`}>
+          <button aria-label="menu" onClick={toggleMobileMenu} className={`${textColor} focus:outline-none`}>
             {/* Ícone de hambúrguer */}
             <svg
               className="w-8 h-8"
@@ -266,6 +282,13 @@ const Header = () => {
               Sobre Nós
             </a>
           </li>
+          {isAdmin && (
+            <li>
+              <a href="/feedbacks" className={`${textColor} hover:text-opacity-80 transition-colors duration-300`}>
+                Feedbacks
+              </a>
+            </li>
+          )}
           {isAdmin && (
             <li>
               <a href="/users" className={`${textColor} hover:text-opacity-80 transition-colors duration-300`}>

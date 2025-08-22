@@ -28,7 +28,7 @@ const EditUserModal = ({ user, onClose, onSave }: EditUserModalProps) => {
     };
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
                 <h2 className="text-2xl font-bold mb-4">Editar Usuário</h2>
                 <form onSubmit={handleSave}>
@@ -96,10 +96,6 @@ const EditUserModal = ({ user, onClose, onSave }: EditUserModalProps) => {
     );
 };
 
-// ----------------------------------------------------------------------------------
-// PÁGINA PRINCIPAL DE USUÁRIOS
-// ----------------------------------------------------------------------------------
-
 function UsersPage() {
     const { user, userData } = useAuth();
     const [users, setUsers] = useState<UserDataType[]>([]);
@@ -166,36 +162,36 @@ function UsersPage() {
             <div className="size-control p-8">
                 <h1 className="text-3xl font-bold text-gray-900 mb-6">Gerenciamento de Usuários</h1>
 
-                <div className="bg-white shadow-lg rounded-lg p-6">
+                <div className="bg-white shadow-lg rounded-lg overflow-hidden">
                     {loadingUsers ? (
                         <p className="text-gray-600">Carregando usuários...</p>
                     ) : (
                         <div className="overflow-x-auto">
                             <table className="min-w-full divide-y divide-gray-200">
-                                <thead className="bg-gray-50">
+                                <thead className="bg-palette-1">
                                     <tr>
                                         <th
-                                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                                            className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
                                             onClick={() => handleSort('nome')}
                                         >
                                             Nome
                                             {sortKey === 'nome' && (sortOrder === 'asc' ? ' ↑' : ' ↓')}
                                         </th>
                                         <th
-                                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                                            className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
                                             onClick={() => handleSort('email')}
                                         >
                                             Email
                                             {sortKey === 'email' && (sortOrder === 'asc' ? ' ↑' : ' ↓')}
                                         </th>
                                         <th
-                                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                                            className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
                                             onClick={() => handleSort('nivel_autorizacao')}
                                         >
                                             Autorização
                                             {sortKey === 'nivel_autorizacao' && (sortOrder === 'asc' ? ' ↑' : ' ↓')}
                                         </th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">

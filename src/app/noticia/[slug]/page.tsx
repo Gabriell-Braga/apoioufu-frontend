@@ -146,7 +146,7 @@ export default function NoticiaPage() {
                                                 height={400}
                                             />
                                         )}
-                                        <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 text-white text-xs p-2 rounded-tl-lg">
+                                        <div className="absolute bottom-0 right-0 bg-black/50 text-white text-xs p-2 rounded-tl-lg">
                                             {relatedNoticia.tag || "Sem Tag"}
                                         </div>
                                     </div>

@@ -29,3 +29,13 @@ export interface EditUserModalProps {
     onClose: () => void;
     onSave: (userId: string, data: { nome: string, sobrenome: string, nivel_autorizacao: string }) => Promise<void>;
 }
+
+// types.ts ou em um arquivo de definição de tipos no seu projeto
+export interface Feedback {
+  id: string;
+  type: 'melhoria' | 'critica' | 'ideia';
+  feedback: string;
+  contact?: string;
+  userId: string;
+  timestamp: any; // Pode ser firebase.firestore.Timestamp se você fizer a conversão ao buscar
+}

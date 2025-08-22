@@ -54,15 +54,15 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Anonimato e Segurança</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Guia para Denúncias Seguras</h3>
               <p className="text-gray-700">
-                Muitas vítimas de racismo temem represálias ao denunciar. Nossa plataforma garante o anonimato e a segurança dos dados, encorajando mais pessoas a relatarem incidentes e construindo um panorama mais completo das práticas racistas.
+                O medo de se expor pode ser um obstáculo. Por isso, a denúncia é feita de forma anônima e segura através do portal FalaBR. O Apoio UFU atua como um suporte para que você se sinta seguro e confiante ao registrar seu relato, sem precisar se preocupar com a exposição.
               </p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Dados para Ação</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Consciência e Transformação</h3>
               <p className="text-gray-700">
-                Além de coletar denúncias, o Apoio UFU gera relatórios gerenciais detalhados. Esses dados são cruciais para a universidade identificar fatores repetitivos de discriminação e implementar ações corretivas e proativas.
+                A participação da comunidade nos dá uma visão clara dos desafios enfrentados na universidade. Com base nessas informações, a UFU pode desenvolver estratégias proativas e, através de nossas notícias, mantemos a todos informados sobre o progresso e as ações em andamento para erradicar o racismo.
               </p>
             </div>
           </div>

@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { AuthProvider } from '../../lib/AuthContext';
+import FloatingButton from './components/FloatingButton';
 
 export const metadata: Metadata = {
   title: "Apoio UFU",
@@ -11,7 +12,8 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",
-  }
+  },
+
 };
 
 const montserrat = Montserrat({
@@ -28,6 +30,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className={montserrat.variable}>
+      <head>
+        <meta name="description" content="Apoio à comunidade da UFU" />
+      </head>
       <body>
         <AuthProvider>
           <Header />
@@ -35,6 +40,7 @@ export default function RootLayout({
             {children}
             <Footer />
           </main>
+          <FloatingButton />
         </AuthProvider>
       </body>
     </html>

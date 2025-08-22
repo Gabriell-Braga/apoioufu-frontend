@@ -144,51 +144,51 @@ const GerenciarNoticiasPage = () => {
         <ProtectedPage requiredRole="escritor">
             <div className="size-control mb-16">
                 <h1 className="text-3xl font-bold text-gray-900 mb-6">Gerenciar Notícias</h1>
-                <div className="bg-white rounded-lg shadow-lg p-6">
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="min-w-full divide-y divide-gray-200">
-                            <thead className="bg-gray-50">
+                            <thead className="bg-palette-1">
                                 <tr>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
                                         Imagem
                                     </th>
                                     <th 
                                         onClick={() => requestSort('titulo')}
-                                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                                        className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
                                     >
                                         Título
                                         {sortConfig?.key === 'titulo' && (
-                                            <span className={`ml-2 inline-block transition-transform duration-200 ${sortConfig?.direction === 'descending' ? 'rotate-180' : ''}`}>▼</span>
+                                            <span className={`ml-2 inline-block transition-transform duration-200 ${sortConfig?.direction === 'descending' ? 'rotate-180' : ''}`}>↓</span>
                                         )}
                                     </th>
                                     <th 
                                         onClick={() => requestSort('tag')}
-                                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                                        className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
                                     >
                                         Tag
                                         {sortConfig?.key === 'tag' && (
-                                            <span className={`ml-2 inline-block transition-transform duration-200 ${sortConfig?.direction === 'descending' ? 'rotate-180' : ''}`}>▼</span>
+                                            <span className={`ml-2 inline-block transition-transform duration-200 ${sortConfig?.direction === 'descending' ? 'rotate-180' : ''}`}>↓</span>
                                         )}
                                     </th>
                                     <th 
                                         onClick={() => requestSort('status')}
-                                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                                        className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
                                     >
                                         Status
                                         {sortConfig?.key === 'status' && (
-                                            <span className={`ml-2 inline-block transition-transform duration-200 ${sortConfig?.direction === 'descending' ? 'rotate-180' : ''}`}>▼</span>
+                                            <span className={`ml-2 inline-block transition-transform duration-200 ${sortConfig?.direction === 'descending' ? 'rotate-180' : ''}`}>↓</span>
                                         )}
                                     </th>
                                     <th 
                                         onClick={() => requestSort('dataCriacao')}
-                                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                                        className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
                                     >
                                         Data
                                         {sortConfig?.key === 'dataCriacao' && (
-                                            <span className={`ml-2 inline-block transition-transform duration-200 ${sortConfig?.direction === 'descending' ? 'rotate-180' : ''}`}>▼</span>
+                                            <span className={`ml-2 inline-block transition-transform duration-200 ${sortConfig?.direction === 'descending' ? 'rotate-180' : ''}`}>↓</span>
                                         )}
                                     </th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
                                         Ações
                                     </th>
                                 </tr>
