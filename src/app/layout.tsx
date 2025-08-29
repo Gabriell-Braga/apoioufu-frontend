@@ -33,6 +33,12 @@ export default function RootLayout({
     <html lang="pt-BR" className={montserrat.variable}>
       <head>
         <meta name="description" content="Apoio à comunidade da UFU" />
+        <link 
+          rel="preload" 
+          href="/silence-is-violence.avif" 
+          as="image" 
+          fetchPriority="high" 
+        />
       </head>
       <body>
         <AuthProvider>
