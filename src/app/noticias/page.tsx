@@ -104,7 +104,7 @@ export default function NewsPage() {
                 </div>
                 
                 {noticiaDestaque && (
-                    <div className="bg-palette-5 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col md:flex-row items-center justify-center w-full overflow-hidden">
+                    <a href={`/noticia/${noticiaDestaque.slug}`} className="bg-palette-5 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col md:flex-row items-center justify-center w-full overflow-hidden">
                         <div className="w-full md:w-1/2 relative">
                             {noticiaDestaque.imagem && (
                                 <Image 
@@ -129,18 +129,18 @@ export default function NewsPage() {
                             <p className="text-sm h-auto md:h-20 overflow-hidden text-ellipsis">
                                 {noticiaDestaque.resumo}
                             </p>
-                            <a href={`/noticia/${noticiaDestaque.slug}`} className="text-palette-2 hover:text-palette-1 mt-4">
+                            <button className="text-palette-2 hover:text-palette-1 mt-4">
                                 Ler mais →
-                            </a>
+                            </button>
                         </div>
-                    </div>
+                    </a>
                 )}
                 
                 {outrasNoticias.length > 0 && (
                     <div className="grid lg:grid-cols-4 lg:grid-rows-2 sm:grid-cols-2 sm:grid-rows-4 grid-cols-1 grid-rows-8 gap-5 w-full">
                         {outrasNoticias.map((noticia, index) => {
                             return (
-                                <div 
+                                <a  href={`/noticia/${noticia.slug}`} 
                                     key={noticia.id} 
                                     className="bg-palette-5 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-start justify-between overflow-hidden"
                                 >
@@ -168,11 +168,11 @@ export default function NewsPage() {
                                         <p className="text-xs h-20 overflow-hidden text-ellipsis">
                                             {noticia.resumo}
                                         </p>
-                                        <a href={`/noticia/${noticia.slug}`} className="text-palette-2 hover:text-palette-1 mt-2">
+                                        <button className="text-palette-2 hover:text-palette-1 mt-2">
                                             Ler mais →
-                                        </a>
+                                        </button>
                                     </div>
-                                </div>
+                                </a>
                             );
                         })}
                     </div>

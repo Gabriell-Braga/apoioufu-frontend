@@ -135,7 +135,7 @@ export default function NoticiaPage() {
                         <h2 className="text-2xl font-bold mb-6">Notícias Relacionadas</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {relatedNoticias.map((relatedNoticia) => (
-                                <div key={relatedNoticia.id} className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-start justify-between overflow-hidden">
+                                <a href={`/noticia/${noticia.slug}`} key={relatedNoticia.id} className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-start justify-between overflow-hidden">
                                     <div className="w-full relative">
                                         {relatedNoticia.imagem && (
                                             <Image 
@@ -160,11 +160,11 @@ export default function NoticiaPage() {
                                         <p className="text-xs h-20 overflow-hidden text-ellipsis">
                                             {relatedNoticia.resumo}
                                         </p>
-                                        <a href={`/noticia/${relatedNoticia.slug}`} className="text-palette-2 hover:text-palette-1 mt-2">
+                                        <button className="text-palette-2 hover:text-palette-1 mt-2">
                                             Ler mais →
-                                        </a>
+                                        </button>
                                     </div>
-                                </div>
+                                </a>
                             ))}
                         </div>
                     </div>

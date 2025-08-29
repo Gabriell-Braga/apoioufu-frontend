@@ -61,7 +61,7 @@ const HomePage = () => {
                         <h1 className="text-6xl font-semibold">Silêncio é Violência!</h1>
                         <p className="max-w-96">Não fique em <b>silêncio</b> diante da opressão. Sua voz é importante! Aprenda a se manifestar ou entre em contato com a gente.</p>
                         <div className="flex items-center justify-end gap-5">
-                            <button className="bg-transparent border-2 border-palette-5 text-palette-5 py-2 px-4 rounded-full cursor-pointer hover:bg-palette-5 hover:text-palette-3 transition-colors ease-in-out duration-200">Fazer uma denúncia</button>
+                            <a href='/denunciar' className="bg-transparent border-2 border-palette-5 text-palette-5 py-2 px-4 rounded-full cursor-pointer hover:bg-palette-5 hover:text-palette-3 transition-colors ease-in-out duration-200">Fazer uma denúncia</a>
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@ const HomePage = () => {
                         <>
                             {/* Notícia de Destaque */}
                             {noticiaDestaque && (
-                                <div className="bg-palette-5 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col md:flex-row items-center justify-center w-full overflow-hidden">
+                                <a href={`/noticia/${noticiaDestaque.slug}`} className="bg-palette-5 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col md:flex-row items-center justify-center w-full overflow-hidden">
                                     <div className="w-full md:w-1/2 relative">
                                         <Image 
                                             src={noticiaDestaque.imagem || "https://placehold.co/1200x800/E5E7EB/4B5563?text=Imagem"} 
@@ -103,17 +103,17 @@ const HomePage = () => {
                                         <p className="text-sm h-auto md:h-20 overflow-hidden text-ellipsis">
                                             {noticiaDestaque.resumo}
                                         </p>
-                                        <a href={`/noticia/${noticiaDestaque.slug}`} className="text-palette-2 hover:text-palette-1 mt-4">
+                                        <button className="text-palette-2 hover:text-palette-1 mt-4">
                                             Ler mais →
-                                        </a>
+                                        </button>
                                     </div>
-                                </div>
+                                </a>
                             )}
                             
                             {/* Grid de Outras Notícias */}
                             <div className="grid lg:grid-cols-4 lg:grid-rows-2 sm:grid-cols-2 sm:grid-rows-4 grid-cols-1 grid-rows-8 gap-5 w-full">
                                 {outrasNoticias.map((noticia) => (
-                                    <div key={noticia.id} className="bg-palette-5 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-start justify-between overflow-hidden">
+                                    <a href={`/noticia/${noticia.slug}`} key={noticia.id} className="bg-palette-5 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-start justify-between overflow-hidden">
                                         <div className="w-full relative">
                                             <Image 
                                                 src={noticia.imagem || "https://placehold.co/600x400/E5E7EB/4B5563?text=Imagem"} 
@@ -138,11 +138,11 @@ const HomePage = () => {
                                                     {noticia.resumo}
                                                 </p>
                                             </div>
-                                            <a href={`/noticia/${noticia.slug}`} className="text-palette-2 hover:text-palette-1 mt-2 justify-self-end">
+                                            <button className="text-palette-2 hover:text-palette-1 mt-2 justify-self-end">
                                                 Ler mais →
-                                            </a>
+                                            </button>
                                         </div>
-                                    </div>
+                                    </a>
                                 ))}
                             </div>
                             
@@ -171,7 +171,7 @@ const HomePage = () => {
                         <div className="flex flex-col items-center lg:items-end justify-between w-full gap-5 lg:text-end text-center">
                             <h2 className="text-4xl font-semibold">Juntos somos mais fortes!</h2>
                             <p>Apoie a luta contra o racismo e a opressão no ambiente universitário. Cada denúncia e ato de solidariedade são cruciais para desmantelar preconceitos e construir uma comunidade acadêmica justa. Sua participação é fundamental: ela empodera vozes e inspira a mudança.</p>
-                            <button className="bg-palette-5 text-palette-3 py-2 px-4 rounded-full cursor-pointer hover:bg-palette-1 transition-colors ease-in-out duration-200">Denunciar</button>
+                            <a href='/denunciar' className="bg-palette-5 text-palette-3 py-2 px-4 rounded-full cursor-pointer hover:bg-palette-1 transition-colors ease-in-out duration-200">Denunciar</a>
                         </div>          
                     </div>
                 </div>
