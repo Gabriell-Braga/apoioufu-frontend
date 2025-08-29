@@ -65,6 +65,15 @@ const HomePage = () => {
                         </div>
                     </div>
                 </div>
+                <div style={{ display: 'none' }}>
+                    <Image
+                    src={'/silence-is-violence.avif'}
+                    alt="LCP Preload Image"
+                    priority 
+                    width={1} 
+                    height={1}
+                    />
+                </div>
             </div>
 
             {/* noticias */}
